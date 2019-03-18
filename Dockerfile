@@ -6,7 +6,7 @@ ARG user=nobody
 ARG group=nogroup
 ARG JAR_NAME=eucalyptus-xls-1.0.0.jar
 
-ENV VERTICLE_NAME com.tekhne.eucalyptus.xls.verticles.Api
+ENV VERTICLE_NAME com.tekhne.eucalyptus.xls.verticles.XlsBootstrap
 ENV VERTICLE_HOME /usr/verticles
 ENV port=8080
 
