@@ -1,0 +1,31 @@
+package com.tekhne.eucalyptus.xls.model
+
+data class Case(
+    val magasin: String,
+    val format: Format,
+    val iflg: IFLG,
+    val fr: String,
+    val numdossier: Int,
+    val preparateur: String?,
+    val smac: Int?,
+    val anabel: Int,
+    val caisse: Int,
+    val ean: Long,
+    val grappe: Int,
+    val adosseSat: AdosseSat,
+    val environment: Environment,
+    val region: String,
+    val adresse1: String,
+    val adresse2: String?,
+    val adresse3: String?,
+    val cp: String,
+    val ville: String,
+    val impEtiquette: String?,
+    val ipImpEtiquette: String?,
+    val modeleEtiquette: String?,
+    val lower: String?,
+    val impBL: String?,
+    val ipImpBL: String?,
+    val modeleBL: String?,
+    val upper: String?
+)

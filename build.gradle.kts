@@ -1,5 +1,8 @@
-val vertxVersion = "3.5.4"
-val junitVersion = "5.3.0"
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+val vertxVersion = "3.6.3"
+val spek_version = "2.0.0-rc.1"
+val kotlin_version = "1.2.61"
 
 plugins {
     base
@@ -10,8 +13,18 @@ plugins {
 
 group = "com.tekhne.eucalyptus"
 
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform {
+        includeEngines("spek2")
+    }
+}
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -22,16 +35,20 @@ application {
 }
 
 dependencies {
-    compileOnly(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     implementation("org.slf4j:slf4j-api:1.7.14")
     implementation("ch.qos.logback:logback-classic:1.1.3")
     testImplementation("io.mockk:mockk:1.8.7")
     testImplementation("org.assertj:assertj-core:3.11.1")
-    "org.junit.jupiter".let {v ->
-        testImplementation("$v:junit-jupiter-api:$junitVersion")
-        testImplementation("$v:junit-jupiter-params:$junitVersion")
-        testRuntimeOnly("$v:junit-jupiter-engine:$junitVersion")
+    testImplementation ("org.spekframework.spek2:spek-dsl-jvm:${spek_version}")  {
+        exclude(group = "org.jetbrains.kotlin")
     }
+    testRuntimeOnly ("org.spekframework.spek2:spek-runner-junit5:${spek_version}") {
+        exclude(group = "org.jetbrains.kotlin")
+        //exclude(group = "org.junit.platform")
+    }
+    // spek requires kotlin-reflect, can be omitted if already in the classpath
+    testRuntimeOnly("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
     "io.vertx:vertx".let { v ->
         compile("$v-core:$vertxVersion")
         compileOnly("$v-lang-kotlin:$vertxVersion")
