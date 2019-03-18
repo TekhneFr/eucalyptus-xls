@@ -1,7 +1,7 @@
 openapi: 3.0.2
 servers:
   - url: http://localhost:8081
-info: 
+info:
   title: "Documentation for eucalyptus-xls API"
   version: "1.0.0"
 paths:
