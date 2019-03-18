@@ -1,0 +1,42 @@
+openapi: 3.0.2
+servers:
+  - url: http://localhost:8081
+info: 
+  title: "Documentation for eucalyptus-xls API"
+  version: "1.0.0"
+paths:
+  /batch:
+    post:
+      operationId: addCase
+      summary: add a batch of cases in the database.
+      requestBody:
+        description: A multipart form containing an excel file and it's metadata.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BatchFile'
+      responses:
+        '201':
+          description: Content created
+          content:
+            application/json:
+              example: {
+                         "status": "OK",
+                         "id": "c009fd0b-5e90-444a-9228-c4dcae35e968",
+                         "cases": 12
+              }
+        '400':
+          description: The provided input is not correct.
+        '401':
+          description: client is unauthorized.
+        '500':
+          description: An error occured on the server side
+components:
+  schemas:
+    BatchFile:
+      description: BatchFile creation query object
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
