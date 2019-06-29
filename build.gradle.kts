@@ -55,6 +55,7 @@ dependencies {
         compileOnly("$v-lang-kotlin-coroutines:$vertxVersion")
         compile("$v-web-api-contract:$vertxVersion")
         compileOnly("$v-health-check:$vertxVersion")
+        compile("$v-mongo-client:$vertxVersion")
     }
     implementation("org.apache.poi:poi:3.17")
     implementation("org.apache.poi:poi-ooxml:3.17")

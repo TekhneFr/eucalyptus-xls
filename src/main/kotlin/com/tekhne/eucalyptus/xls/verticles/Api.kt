@@ -5,6 +5,7 @@ import io.vertx.core.AbstractVerticle
 import io.vertx.core.http.HttpServerOptions
 import io.vertx.ext.web.api.contract.openapi3.OpenAPI3RouterFactory
 import io.vertx.kotlin.core.http.HttpServerOptions
+import io.vertx.kotlin.core.http.httpServerOptionsOf
 import org.slf4j.LoggerFactory
 
 class Api : AbstractVerticle() {
@@ -21,7 +22,7 @@ class Api : AbstractVerticle() {
                 it.response().end(it.failure().message)
             }
             vertx.createHttpServer(
-                HttpServerOptions(
+                httpServerOptionsOf(
                         port = 8080
                 )
             ).requestHandler(routerFactory.router).listen()

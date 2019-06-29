@@ -23,7 +23,6 @@ class CaseHandler : Handler<RoutingContext>{
                 return Files.newInputStream(p)
             }
             throw FileNotFoundException("file $upFilePath doeas not exists")
-
         }
     }
 
@@ -39,6 +38,5 @@ class CaseHandler : Handler<RoutingContext>{
         val responseStr = Json.encodePrettily(batchFile)
         logger.debug(responseStr)
         event.response().putHeader("content-type", "application/json; charset=utf-8").end(responseStr)
-
     }
 }
