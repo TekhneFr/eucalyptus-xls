@@ -1,5 +1,6 @@
 package com.tekhne.eucalyptus.xls.handler
 
+import com.google.common.hash.Hashing
 import com.tekhne.eucalyptus.xls.model.BatchFile
 import com.tekhne.eucalyptus.xls.model.Case
 import org.apache.poi.ss.usermodel.Cell

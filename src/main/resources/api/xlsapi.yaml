@@ -22,13 +22,38 @@ paths:
             application/json:
               example: {
                          "status": "OK",
-                         "id": "c009fd0b-5e90-444a-9228-c4dcae35e968",
+                         "uid": "c009fd0b-5e90-444a-9228-c4dcae35e968",
                          "cases": 12
               }
         '400':
           description: The provided input is not correct.
         '401':
           description: client is unauthorized.
+        '500':
+          description: An error occured on the server side
+  /batch/{uid}:
+    get:
+      operationId: getCase
+      summary: get full batch data
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Content retrieved
+          content:
+            application/json:
+              example: {
+                         "uid": "c009fd0b-5e90-444a-9228-c4dcae35e968",
+                         "cases": 12
+              }
+        '401':
+          description: client is unauthorized
+        '404':
+          description: Content was not found
         '500':
           description: An error occured on the server side
 components:

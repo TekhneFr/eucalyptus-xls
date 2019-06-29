@@ -1,9 +1,10 @@
 package com.tekhne.eucalyptus.xls.handler
 
+import com.tekhne.eucalyptus.xls.Events
 import io.vertx.core.Handler
+import io.vertx.core.Vertx
 import io.vertx.core.json.Json
 import io.vertx.ext.web.RoutingContext
-import io.vertx.ext.web.handler.BodyHandler
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
 import java.io.InputStream
@@ -22,7 +23,7 @@ class CaseHandler : Handler<RoutingContext>{
             if (Files.exists(p)) {
                 return Files.newInputStream(p)
             }
-            throw FileNotFoundException("file $upFilePath doeas not exists")
+            throw FileNotFoundException("file $upFilePath does not exists")
         }
     }
 
@@ -30,13 +31,12 @@ class CaseHandler : Handler<RoutingContext>{
         val uploads = event?.fileUploads()
         logger.debug("${uploads?.size}")
         when {
-            uploads == null -> event?.fail(IllegalArgumentException("No BatchFile file provided"))
-            uploads.isEmpty() -> event.fail(IllegalArgumentException("No BatchFile file provided"))
+            uploads == null || uploads.isEmpty() -> event?.fail(IllegalArgumentException("No BatchFile file provided"))
         }
         val fileName = uploads!!.first().name()
         val batchFile = XlsParser.parse(readFile(uploads.first().uploadedFileName()), fileName)
         val responseStr = Json.encodePrettily(batchFile)
-        logger.debug(responseStr)
+        event.vertx().eventBus().publish(Events.DB_PERSIST_EVENT.address, responseStr)
         event.response().putHeader("content-type", "application/json; charset=utf-8").end(responseStr)
     }
 }
