@@ -2,7 +2,6 @@ package com.tekhne.eucalyptus.xls.handler
 
 import com.tekhne.eucalyptus.xls.Events
 import io.vertx.core.Handler
-import io.vertx.core.Vertx
 import io.vertx.core.json.Json
 import io.vertx.ext.web.RoutingContext
 import org.slf4j.LoggerFactory
@@ -11,9 +10,9 @@ import java.io.InputStream
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class CaseHandler : Handler<RoutingContext>{
+class SaveCaseHandler : Handler<RoutingContext>{
 
-    private val logger = LoggerFactory.getLogger(CaseHandler::class.java)
+    private val logger = LoggerFactory.getLogger(SaveCaseHandler::class.java)
 
 
     private fun readFile(fileName : String): InputStream {
