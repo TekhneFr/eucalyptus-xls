@@ -4,6 +4,8 @@ import com.tekhne.eucalyptus.xls.Events
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.json.JsonObject
 import io.vertx.ext.mongo.MongoClient
+import io.vertx.kotlin.core.json.json
+import io.vertx.kotlin.core.json.obj
 import org.slf4j.LoggerFactory
 
 class Database : AbstractVerticle() {
@@ -21,6 +23,16 @@ class Database : AbstractVerticle() {
                     result.failed() -> logger.error("Batch insertion failed")
                 }
             }
+        }
+        vertx.eventBus().consumer<String>(Events.DB_GET_BATCH_EVENT.address) {event ->
+            client.findOne("batch", json { obj("uid" to event.body())}, null) {
+                when {
+                    it.succeeded() -> event.reply(it.result().encode())
+                    it.failed() -> event.fail(500, it.cause().message)
+                }
+
+            }
+
         }
     }
 
