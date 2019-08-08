@@ -20,7 +20,8 @@ class XlsBootstrap : AbstractVerticle() {
                 res.failed() -> logger.error("API failed to start")
             }
         }
-        vertx.deployVerticle(Database::class.java.canonicalName, DeploymentOptions().setConfig(config().getJsonObject("mongo"))){
+        vertx.deployVerticle(Database::class.java.canonicalName,
+                DeploymentOptions().setConfig(config().getJsonObject("mongo"))){
             res ->
             when {
                 res.succeeded() -> logger.debug("Database connection is ready")

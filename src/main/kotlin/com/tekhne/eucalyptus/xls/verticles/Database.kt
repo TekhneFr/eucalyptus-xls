@@ -27,13 +27,13 @@ class Database : AbstractVerticle() {
         vertx.eventBus().consumer<String>(Events.DB_GET_BATCH_EVENT.address) {event ->
             client.findOne("batch", json { obj("uid" to event.body())}, null) {
                 when {
-                    it.succeeded() -> event.reply(it.result().encode())
+                    it.succeeded() -> when {
+                        it.result() == null || it.result().isEmpty -> event.fail(404, "No batch with id ${event.body()}")
+                        else -> event.reply(it.result().encode())
+                    }
                     it.failed() -> event.fail(500, it.cause().message)
                 }
-
             }
-
         }
     }
-
 }

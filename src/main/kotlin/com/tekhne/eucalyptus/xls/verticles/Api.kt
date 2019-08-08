@@ -22,8 +22,8 @@ class Api : AbstractVerticle() {
             }
             routerFactory.addHandlerByOperationId("getCase", GetCaseHandler())
             routerFactory.addFailureHandlerByOperationId("getCase") {
-                logger.error(it.failure().message)
-                it.response().end(it.failure().message)
+                logger.error("${it.failure()} ${it.failure().message}")
+                it.response().setStatusCode(it.statusCode()).end(it.failure().message)
             }
             vertx.createHttpServer(
                 httpServerOptionsOf(

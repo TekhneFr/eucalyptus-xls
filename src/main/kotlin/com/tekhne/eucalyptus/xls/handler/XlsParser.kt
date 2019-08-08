@@ -81,7 +81,7 @@ object XlsParser {
                     enumValueOf(iterator.next().stringCellValue),
                     iterator.next().stringCellValue,
                     intValue(iterator.next()),
-                    nullableStringValue(iterator.next()),
+                    nullableIntValue(iterator.next()),
                     nullableIntValue(iterator.next()),
                     intValue(iterator.next()),
                     intValue(iterator.next()),

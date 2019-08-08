@@ -25,5 +25,7 @@ hs_err_pid*
 .gradle/
 .idea/
 build/
+file-uploads/
 .kotlin/
 out/
+*.swp
