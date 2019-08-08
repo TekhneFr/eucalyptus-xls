@@ -6,7 +6,7 @@ data class Case(
     val iflg: IFLG,
     val fr: String,
     val numdossier: Int,
-    val preparateur: String?,
+    val preparateur: Int?,
     val smac: Int?,
     val anabel: Int,
     val caisse: Int,
